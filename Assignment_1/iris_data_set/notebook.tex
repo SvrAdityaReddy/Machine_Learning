@@ -1,0 +1,847 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{iris\_dataset\_classification}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \hypertarget{libraries}{%
+\section{Libraries}\label{libraries}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        \PY{k+kn}{import} \PY{n+nn}{time}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn} \PY{k}{import} \PY{n}{datasets}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{model\PYZus{}selection} \PY{k}{import} \PY{n}{train\PYZus{}test\PYZus{}split}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{linear\PYZus{}model} \PY{k}{import} \PY{n}{LogisticRegression}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{metrics} \PY{k}{import} \PY{n}{accuracy\PYZus{}score}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{n}{iris} \PY{o}{=} \PY{n}{datasets}\PY{o}{.}\PY{n}{load\PYZus{}iris}\PY{p}{(}\PY{p}{)}
+        \PY{n+nb}{list}\PY{p}{(}\PY{n}{iris}\PY{o}{.}\PY{n}{keys}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}2}]:} ['data', 'target', 'target\_names', 'DESCR', 'feature\_names']
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{n+nb}{print}\PY{p}{(}\PY{n}{iris}\PY{o}{.}\PY{n}{DESCR}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Iris Plants Database
+====================
+
+Notes
+-----
+Data Set Characteristics:
+    :Number of Instances: 150 (50 in each of three classes)
+    :Number of Attributes: 4 numeric, predictive attributes and the class
+    :Attribute Information:
+        - sepal length in cm
+        - sepal width in cm
+        - petal length in cm
+        - petal width in cm
+        - class:
+                - Iris-Setosa
+                - Iris-Versicolour
+                - Iris-Virginica
+    :Summary Statistics:
+
+    ============== ==== ==== ======= ===== ====================
+                    Min  Max   Mean    SD   Class Correlation
+    ============== ==== ==== ======= ===== ====================
+    sepal length:   4.3  7.9   5.84   0.83    0.7826
+    sepal width:    2.0  4.4   3.05   0.43   -0.4194
+    petal length:   1.0  6.9   3.76   1.76    0.9490  (high!)
+    petal width:    0.1  2.5   1.20  0.76     0.9565  (high!)
+    ============== ==== ==== ======= ===== ====================
+
+    :Missing Attribute Values: None
+    :Class Distribution: 33.3\% for each of 3 classes.
+    :Creator: R.A. Fisher
+    :Donor: Michael Marshall (MARSHALL\%PLU@io.arc.nasa.gov)
+    :Date: July, 1988
+
+This is a copy of UCI ML iris datasets.
+http://archive.ics.uci.edu/ml/datasets/Iris
+
+The famous Iris database, first used by Sir R.A Fisher
+
+This is perhaps the best known database to be found in the
+pattern recognition literature.  Fisher's paper is a classic in the field and
+is referenced frequently to this day.  (See Duda \& Hart, for example.)  The
+data set contains 3 classes of 50 instances each, where each class refers to a
+type of iris plant.  One class is linearly separable from the other 2; the
+latter are NOT linearly separable from each other.
+
+References
+----------
+   - Fisher,R.A. "The use of multiple measurements in taxonomic problems"
+     Annual Eugenics, 7, Part II, 179-188 (1936); also in "Contributions to
+     Mathematical Statistics" (John Wiley, NY, 1950).
+   - Duda,R.O., \& Hart,P.E. (1973) Pattern Classification and Scene Analysis.
+     (Q327.D83) John Wiley \& Sons.  ISBN 0-471-22361-1.  See page 218.
+   - Dasarathy, B.V. (1980) "Nosing Around the Neighborhood: A New System
+     Structure and Classification Rule for Recognition in Partially Exposed
+     Environments".  IEEE Transactions on Pattern Analysis and Machine
+     Intelligence, Vol. PAMI-2, No. 1, 67-71.
+   - Gates, G.W. (1972) "The Reduced Nearest Neighbor Rule".  IEEE Transactions
+     on Information Theory, May 1972, 431-433.
+   - See also: 1988 MLC Proceedings, 54-64.  Cheeseman et al"s AUTOCLASS II
+     conceptual clustering system finds 3 classes in the data.
+   - Many, many more {\ldots}
+
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{n+nb}{print}\PY{p}{(}\PY{n}{iris}\PY{o}{.}\PY{n}{target}\PY{p}{)} \PY{c+c1}{\PYZsh{}gives a detailed descriptipon of the Iris dataset}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+ 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+ 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 2 2 2 2 2 2 2 2 2 2 2
+ 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2
+ 2 2]
+
+    \end{Verbatim}
+
+    \hypertarget{merging-data-features}{%
+\section{Merging data features}\label{merging-data-features}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{n}{data} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{iris}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{data}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+        \PY{c+c1}{\PYZsh{} print(data)}
+        \PY{n}{data\PYZus{}with\PYZus{}labels}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{insert}\PY{p}{(}\PY{n}{data}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{n}{values}\PY{o}{=}\PY{n}{iris}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{target}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)} \PY{c+c1}{\PYZsh{} first element is the class label}
+        \PY{c+c1}{\PYZsh{} print(data\PYZus{}with\PYZus{}labels)}
+\end{Verbatim}
+
+
+    \hypertarget{creation-of-test-and-train-dataset}{%
+\section{Creation of Test and Train
+dataset}\label{creation-of-test-and-train-dataset}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{n}{train\PYZus{}set}\PY{p}{,} \PY{n}{test\PYZus{}set}\PY{o}{=}\PY{n}{train\PYZus{}test\PYZus{}split}\PY{p}{(}\PY{n}{data\PYZus{}with\PYZus{}labels}\PY{p}{,}\PY{n}{test\PYZus{}size}\PY{o}{=}\PY{l+m+mf}{0.3}\PY{p}{,}\PY{n}{random\PYZus{}state}\PY{o}{=}\PY{l+m+mi}{42}\PY{p}{)}
+\end{Verbatim}
+
+
+    \hypertarget{binary-classification}{%
+\section{Binary Classification}\label{binary-classification}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{n}{X}\PY{o}{=}\PY{n}{train\PYZus{}set}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{)}\PY{p}{]} \PY{c+c1}{\PYZsh{} taking feature petal length and petal width}
+        \PY{c+c1}{\PYZsh{} Y=(train\PYZus{}set[:,0]==2).astype(np.int) \PYZsh{} to map true and false to 1 and 0 respectively}
+        \PY{c+c1}{\PYZsh{} print(X)}
+        \PY{c+c1}{\PYZsh{} print(Y)}
+        \PY{n}{test\PYZus{}data}\PY{o}{=}\PY{n}{test\PYZus{}set}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{)}\PY{p}{]} \PY{c+c1}{\PYZsh{} taking feature petal length and petal width}
+        \PY{n}{train\PYZus{}labels1}\PY{o}{=}\PY{p}{(}\PY{n}{train\PYZus{}set}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{==}\PY{l+m+mi}{0}\PY{p}{)}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{int}\PY{p}{)}
+        \PY{n}{train\PYZus{}labels2}\PY{o}{=}\PY{p}{(}\PY{n}{train\PYZus{}set}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{==}\PY{l+m+mi}{1}\PY{p}{)}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{int}\PY{p}{)}
+        \PY{n}{train\PYZus{}labels3}\PY{o}{=}\PY{p}{(}\PY{n}{train\PYZus{}set}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{==}\PY{l+m+mi}{2}\PY{p}{)}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{int}\PY{p}{)}
+        \PY{c+c1}{\PYZsh{} print(len(X))}
+        \PY{c+c1}{\PYZsh{} print(len(train\PYZus{}labels1))}
+        \PY{n}{test\PYZus{}labels1}\PY{o}{=}\PY{p}{(}\PY{n}{test\PYZus{}set}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{==}\PY{l+m+mi}{0}\PY{p}{)}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{int}\PY{p}{)}
+        \PY{n}{test\PYZus{}labels2}\PY{o}{=}\PY{p}{(}\PY{n}{test\PYZus{}set}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{==}\PY{l+m+mi}{1}\PY{p}{)}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{int}\PY{p}{)}
+        \PY{n}{test\PYZus{}labels3}\PY{o}{=}\PY{p}{(}\PY{n}{test\PYZus{}set}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{==}\PY{l+m+mi}{2}\PY{p}{)}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{int}\PY{p}{)}
+        \PY{c+c1}{\PYZsh{} print(test\PYZus{}labels2)}
+        \PY{c+c1}{\PYZsh{} print(test\PYZus{}labels3)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{c+c1}{\PYZsh{} Y=(Y==2).astype(np.int) \PYZsh{} to map true and false to 1 and 0 respectively}
+        \PY{c+c1}{\PYZsh{} print(Y)}
+\end{Verbatim}
+
+
+    \hypertarget{nearest-neighbours}{%
+\section{Nearest Neighbours}\label{nearest-neighbours}}
+
+    \hypertarget{training-time---nearest-neighours-is-zero}{%
+\subsection{Training time - Nearest Neighours is
+zero}\label{training-time---nearest-neighours-is-zero}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{n}{predicted\PYZus{}labels1}\PY{o}{=}\PY{p}{[}\PY{p}{]}
+        \PY{n}{predicted\PYZus{}labels2}\PY{o}{=}\PY{p}{[}\PY{p}{]}
+        \PY{n}{predicted\PYZus{}labels3}\PY{o}{=}\PY{p}{[}\PY{p}{]}
+        \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{test\PYZus{}data}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+            \PY{c+c1}{\PYZsh{} euclidean distance}
+            \PY{n}{minimum\PYZus{}distance}\PY{o}{=}\PY{p}{(}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{test\PYZus{}data}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{,}\PY{n}{test\PYZus{}data}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{o}{\PYZhy{}}\PY{l+m+mi}{2}\PY{o}{*}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{test\PYZus{}data}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{,}\PY{n}{X}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{o}{+}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{X}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{n}{X}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mf}{0.5}
+            \PY{n}{closest\PYZus{}neighbour1}\PY{o}{=}\PY{n}{train\PYZus{}labels1}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+            \PY{n}{closest\PYZus{}neighbour2}\PY{o}{=}\PY{n}{train\PYZus{}labels2}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+            \PY{n}{closest\PYZus{}neighbour3}\PY{o}{=}\PY{n}{train\PYZus{}labels3}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+            \PY{k}{for} \PY{n}{j} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{n+nb}{len}\PY{p}{(}\PY{n}{X}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                \PY{c+c1}{\PYZsh{} euclidean distance}
+                \PY{n}{distance}\PY{o}{=}\PY{p}{(}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{test\PYZus{}data}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{,}\PY{n}{test\PYZus{}data}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{o}{\PYZhy{}}\PY{l+m+mi}{2}\PY{o}{*}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{test\PYZus{}data}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{,}\PY{n}{X}\PY{p}{[}\PY{n}{j}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{o}{+}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{X}\PY{p}{[}\PY{n}{j}\PY{p}{]}\PY{p}{,}\PY{n}{X}\PY{p}{[}\PY{n}{j}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mf}{0.5}
+                \PY{k}{if}\PY{p}{(}\PY{n}{distance} \PY{o}{\PYZlt{}} \PY{n}{minimum\PYZus{}distance}\PY{p}{)}\PY{p}{:}
+                    \PY{n}{minimum\PYZus{}distance}\PY{o}{=}\PY{n}{distance}
+                    \PY{n}{closest\PYZus{}neighbour1}\PY{o}{=}\PY{n}{train\PYZus{}labels1}\PY{p}{[}\PY{n}{j}\PY{p}{]}
+                    \PY{n}{closest\PYZus{}neighbour2}\PY{o}{=}\PY{n}{train\PYZus{}labels2}\PY{p}{[}\PY{n}{j}\PY{p}{]}
+                    \PY{n}{closest\PYZus{}neighbour3}\PY{o}{=}\PY{n}{train\PYZus{}labels3}\PY{p}{[}\PY{n}{j}\PY{p}{]}
+            \PY{n}{predicted\PYZus{}labels1}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{closest\PYZus{}neighbour1}\PY{p}{)}
+            \PY{n}{predicted\PYZus{}labels2}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{closest\PYZus{}neighbour2}\PY{p}{)}
+            \PY{n}{predicted\PYZus{}labels3}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{closest\PYZus{}neighbour3}\PY{p}{)}
+        \PY{c+c1}{\PYZsh{} print(predicted\PYZus{}labels1)}
+\end{Verbatim}
+
+
+    \hypertarget{accuracy-score---nearest-neighbours}{%
+\subsection{Accuracy score - Nearest
+Neighbours}\label{accuracy-score---nearest-neighbours}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Accuracy for Iris\PYZhy{}Setosa: }\PY{l+s+s2}{\PYZdq{}}\PY{o}{+}\PY{n+nb}{str}\PY{p}{(}\PY{n}{accuracy\PYZus{}score}\PY{p}{(}\PY{n}{test\PYZus{}labels1}\PY{p}{,}\PY{n}{predicted\PYZus{}labels1}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Accuracy for Iris\PYZhy{}Versicolour: }\PY{l+s+s2}{\PYZdq{}}\PY{o}{+}\PY{n+nb}{str}\PY{p}{(}\PY{n}{accuracy\PYZus{}score}\PY{p}{(}\PY{n}{test\PYZus{}labels2}\PY{p}{,}\PY{n}{predicted\PYZus{}labels2}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Accuracy for Iris\PYZhy{}Verginica: }\PY{l+s+s2}{\PYZdq{}}\PY{o}{+}\PY{n+nb}{str}\PY{p}{(}\PY{n}{accuracy\PYZus{}score}\PY{p}{(}\PY{n}{test\PYZus{}labels3}\PY{p}{,}\PY{n}{predicted\PYZus{}labels3}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Accuracy for Iris-Setosa: 1.0
+Accuracy for Iris-Versicolour: 1.0
+Accuracy for Iris-Verginica: 1.0
+
+    \end{Verbatim}
+
+    \hypertarget{naive-bayes-classifier}{%
+\section{Naive Bayes Classifier}\label{naive-bayes-classifier}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{c+c1}{\PYZsh{} Assuming data is fitted to a Gaussian}
+         \PY{k}{def} \PY{n+nf}{probability}\PY{p}{(}\PY{n}{mean}\PY{p}{,} \PY{n}{std}\PY{p}{,} \PY{n}{x}\PY{p}{)}\PY{p}{:}
+             \PY{n}{exponential}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{exp}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{o}{*}\PY{p}{(}\PY{n}{x}\PY{o}{\PYZhy{}}\PY{n}{mean}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{o}{/}\PY{p}{(}\PY{l+m+mi}{2}\PY{o}{*}\PY{p}{(}\PY{n}{std}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+             \PY{k}{return} \PY{p}{(}\PY{p}{(}\PY{l+m+mi}{1}\PY{o}{/}\PY{p}{(}\PY{n}{std}\PY{o}{*}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{22}\PY{o}{/}\PY{l+m+mf}{7.0}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mf}{0.5}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{o}{*}\PY{p}{(}\PY{n}{exponential}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{c+c1}{\PYZsh{} Fitting Gausian}
+         \PY{k}{def} \PY{n+nf}{gaussian\PYZus{}parameters}\PY{p}{(}\PY{n}{X}\PY{p}{)}\PY{p}{:}
+             \PY{n}{mean}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{X}\PY{p}{,}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+             \PY{n}{std}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{std}\PY{p}{(}\PY{n}{X}\PY{p}{,}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+             \PY{k}{return} \PY{p}{(}\PY{n}{mean}\PY{p}{,}\PY{n}{std}\PY{p}{)}
+\end{Verbatim}
+
+
+    \hypertarget{training-time---naive-bayes-classifier}{%
+\subsection{Training Time - Naive Bayes
+Classifier}\label{training-time---naive-bayes-classifier}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{n}{number\PYZus{}of\PYZus{}classes}\PY{o}{=}\PY{n+nb}{len}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{unique}\PY{p}{(}\PY{n}{iris}\PY{o}{.}\PY{n}{target}\PY{p}{)}\PY{p}{)}
+         \PY{n}{train\PYZus{}labels}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{concatenate}\PY{p}{(}\PY{p}{(}\PY{p}{[}\PY{n}{train\PYZus{}labels1}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{n}{train\PYZus{}labels2}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{n}{train\PYZus{}labels3}\PY{p}{]}\PY{p}{)}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+         \PY{n}{predicted\PYZus{}labels}\PY{o}{=}\PY{p}{[}\PY{p}{]}
+         \PY{n}{totalTrainingTime}\PY{o}{=}\PY{p}{[}\PY{p}{]}
+         \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{number\PYZus{}of\PYZus{}classes}\PY{p}{)}\PY{p}{:}
+             \PY{n}{data\PYZus{}class1}\PY{o}{=}\PY{p}{[}\PY{n}{X}\PY{p}{[}\PY{n}{j}\PY{p}{]} \PY{k}{for} \PY{n}{j} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{train\PYZus{}labels}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}\PY{p}{)} \PY{k}{if} \PY{n}{train\PYZus{}labels}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{n}{j}\PY{p}{]}\PY{o}{==}\PY{l+m+mi}{1}\PY{p}{]} \PY{c+c1}{\PYZsh{} class1 refers to data corresponding to flower Iris\PYZhy{}Virginica}
+             \PY{n}{data\PYZus{}class2}\PY{o}{=}\PY{p}{[}\PY{n}{X}\PY{p}{[}\PY{n}{j}\PY{p}{]} \PY{k}{for} \PY{n}{j} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{train\PYZus{}labels}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}\PY{p}{)} \PY{k}{if} \PY{n}{train\PYZus{}labels}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{n}{j}\PY{p}{]}\PY{o}{==}\PY{l+m+mi}{0}\PY{p}{]} \PY{c+c1}{\PYZsh{} class2 refers to data does not corresponds to flower Iris\PYZhy{}Virginica  }
+             \PY{n}{start\PYZus{}time} \PY{o}{=} \PY{n}{time}\PY{o}{.}\PY{n}{time}\PY{p}{(}\PY{p}{)}
+             \PY{p}{(}\PY{n}{mean\PYZus{}class1}\PY{p}{,}\PY{n}{std\PYZus{}class1}\PY{p}{)}\PY{o}{=}\PY{n}{gaussian\PYZus{}parameters}\PY{p}{(}\PY{n}{data\PYZus{}class1}\PY{p}{)} \PY{c+c1}{\PYZsh{} get each features gaussian parameters if their class is class1}
+             \PY{p}{(}\PY{n}{mean\PYZus{}class2}\PY{p}{,}\PY{n}{std\PYZus{}class2}\PY{p}{)}\PY{o}{=}\PY{n}{gaussian\PYZus{}parameters}\PY{p}{(}\PY{n}{data\PYZus{}class2}\PY{p}{)} \PY{c+c1}{\PYZsh{} get each features gaussian parameters if their class is class2}
+             \PY{n}{end\PYZus{}time} \PY{o}{=} \PY{n}{time}\PY{o}{.}\PY{n}{time}\PY{p}{(}\PY{p}{)}
+             \PY{n}{totalTrainingTime}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{end\PYZus{}time}\PY{o}{\PYZhy{}}\PY{n}{start\PYZus{}time}\PY{p}{)}
+             \PY{n}{total\PYZus{}class1}\PY{o}{=}\PY{l+m+mi}{0}
+             \PY{k}{for} \PY{n}{j} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{train\PYZus{}labels}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                 \PY{k}{if}\PY{p}{(}\PY{n}{train\PYZus{}labels}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{n}{j}\PY{p}{]}\PY{o}{==}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{:}
+                     \PY{n}{total\PYZus{}class1}\PY{o}{=}\PY{n}{total\PYZus{}class1}\PY{o}{+}\PY{l+m+mi}{1}
+             \PY{n}{class1\PYZus{}probability}\PY{o}{=}\PY{n+nb}{float}\PY{p}{(}\PY{n}{total\PYZus{}class1}\PY{p}{)}\PY{o}{/}\PY{n+nb}{len}\PY{p}{(}\PY{n}{train\PYZus{}labels}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}
+             \PY{n}{class2\PYZus{}probability}\PY{o}{=}\PY{l+m+mi}{1}\PY{o}{\PYZhy{}}\PY{n}{class1\PYZus{}probability}
+             \PY{n}{class\PYZus{}predicted\PYZus{}labels}\PY{o}{=}\PY{p}{[}\PY{p}{]}
+             \PY{k}{for} \PY{n}{j} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{test\PYZus{}data}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{probability\PYZus{}class1}\PY{o}{=}\PY{l+m+mi}{1}
+                 \PY{n}{probability\PYZus{}class2}\PY{o}{=}\PY{l+m+mi}{1}
+                 \PY{k}{for} \PY{n}{k} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{test\PYZus{}data}\PY{p}{[}\PY{n}{j}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                     \PY{n}{probability\PYZus{}class1}\PY{o}{=}\PY{n}{probability\PYZus{}class1}\PY{o}{*}\PY{n}{probability}\PY{p}{(}\PY{n}{mean\PYZus{}class1}\PY{p}{[}\PY{n}{k}\PY{p}{]}\PY{p}{,}\PY{n}{std\PYZus{}class1}\PY{p}{[}\PY{n}{k}\PY{p}{]}\PY{p}{,}\PY{n}{test\PYZus{}data}\PY{p}{[}\PY{n}{j}\PY{p}{]}\PY{p}{[}\PY{n}{k}\PY{p}{]}\PY{p}{)}
+                     \PY{n}{probability\PYZus{}class2}\PY{o}{=}\PY{n}{probability\PYZus{}class2}\PY{o}{*}\PY{n}{probability}\PY{p}{(}\PY{n}{mean\PYZus{}class2}\PY{p}{[}\PY{n}{k}\PY{p}{]}\PY{p}{,}\PY{n}{std\PYZus{}class2}\PY{p}{[}\PY{n}{k}\PY{p}{]}\PY{p}{,}\PY{n}{test\PYZus{}data}\PY{p}{[}\PY{n}{j}\PY{p}{]}\PY{p}{[}\PY{n}{k}\PY{p}{]}\PY{p}{)}
+                 \PY{n}{probability\PYZus{}class1}\PY{o}{=}\PY{n}{probability\PYZus{}class1}\PY{o}{*}\PY{n}{class1\PYZus{}probability}
+                 \PY{n}{probability\PYZus{}class2}\PY{o}{=}\PY{n}{probability\PYZus{}class2}\PY{o}{*}\PY{n}{class2\PYZus{}probability}
+                 \PY{k}{if}\PY{p}{(}\PY{n}{probability\PYZus{}class1}\PY{o}{\PYZgt{}}\PY{n}{probability\PYZus{}class2}\PY{p}{)}\PY{p}{:}
+                     \PY{n}{class\PYZus{}predicted\PYZus{}labels}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)}
+                 \PY{k}{else}\PY{p}{:}
+                     \PY{n}{class\PYZus{}predicted\PYZus{}labels}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{)}
+             \PY{n}{predicted\PYZus{}labels}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{class\PYZus{}predicted\PYZus{}labels}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Training time for Iris\PYZhy{}Setosa: }\PY{l+s+s2}{\PYZdq{}}\PY{o}{+}\PY{n+nb}{str}\PY{p}{(}\PY{n}{totalTrainingTime}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Training time for Iris\PYZhy{}Versicolour: }\PY{l+s+s2}{\PYZdq{}}\PY{o}{+}\PY{n+nb}{str}\PY{p}{(}\PY{n}{totalTrainingTime}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Training time for Iris\PYZhy{}Verginica: }\PY{l+s+s2}{\PYZdq{}}\PY{o}{+}\PY{n+nb}{str}\PY{p}{(}\PY{n}{totalTrainingTime}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Training time for Iris-Setosa: 0.0004410743713378906
+Training time for Iris-Versicolour: 0.0017528533935546875
+Training time for Iris-Verginica: 0.0003819465637207031
+
+    \end{Verbatim}
+
+    \hypertarget{accuracy-score---naive-bayes-classifier}{%
+\subsection{Accuracy score - Naive Bayes
+Classifier}\label{accuracy-score---naive-bayes-classifier}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Accuracy for Iris\PYZhy{}Setosa: }\PY{l+s+s2}{\PYZdq{}}\PY{o}{+}\PY{n+nb}{str}\PY{p}{(}\PY{n}{accuracy\PYZus{}score}\PY{p}{(}\PY{n}{test\PYZus{}labels1}\PY{p}{,}\PY{n}{predicted\PYZus{}labels}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Accuracy for Iris\PYZhy{}Versicolour: }\PY{l+s+s2}{\PYZdq{}}\PY{o}{+}\PY{n+nb}{str}\PY{p}{(}\PY{n}{accuracy\PYZus{}score}\PY{p}{(}\PY{n}{test\PYZus{}labels2}\PY{p}{,}\PY{n}{predicted\PYZus{}labels}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Accuracy for Iris\PYZhy{}Verginica: }\PY{l+s+s2}{\PYZdq{}}\PY{o}{+}\PY{n+nb}{str}\PY{p}{(}\PY{n}{accuracy\PYZus{}score}\PY{p}{(}\PY{n}{test\PYZus{}labels3}\PY{p}{,}\PY{n}{predicted\PYZus{}labels}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Accuracy for Iris-Setosa: 1.0
+Accuracy for Iris-Versicolour: 1.0
+Accuracy for Iris-Verginica: 0.9777777777777777
+
+    \end{Verbatim}
+
+    \hypertarget{logistic-regression---gradient-descent}{%
+\section{Logistic Regression - Gradient
+Descent}\label{logistic-regression---gradient-descent}}
+
+    Create a copy of features of test data and insert value ``1'' as first
+feature in every data point of test\_data
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{n}{X\PYZus{}data}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{copy}\PY{p}{(}\PY{n}{X}\PY{p}{)}
+         \PY{n}{X\PYZus{}data}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{insert}\PY{p}{(}\PY{n}{X\PYZus{}data}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{n}{values}\PY{o}{=}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}16}]:} \PY{k}{def} \PY{n+nf}{sigmoid}\PY{p}{(}\PY{n}{z}\PY{p}{)}\PY{p}{:}
+             \PY{k}{return} \PY{l+m+mf}{1.0}\PY{o}{/}\PY{p}{(}\PY{l+m+mi}{1}\PY{o}{+}\PY{n}{np}\PY{o}{.}\PY{n}{exp}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{o}{*}\PY{n}{z}\PY{p}{)}\PY{p}{)}
+         \PY{k}{def} \PY{n+nf}{gradient\PYZus{}descent\PYZus{}logistic\PYZus{}regression}\PY{p}{(}\PY{n}{X\PYZus{}data}\PY{p}{,}\PY{n}{Y}\PY{p}{,}\PY{n}{learning\PYZus{}rate}\PY{p}{,}\PY{n}{number\PYZus{}iterations}\PY{p}{)}\PY{p}{:}
+             \PY{n}{theta}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{n}{X\PYZus{}data}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+             \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{number\PYZus{}iterations}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{z}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{X\PYZus{}data}\PY{p}{,}\PY{n}{theta}\PY{p}{)}
+                 \PY{n}{p}\PY{o}{=}\PY{n}{sigmoid}\PY{p}{(}\PY{n}{z}\PY{p}{)}
+                 \PY{n}{gradient}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{X\PYZus{}data}\PY{o}{.}\PY{n}{T}\PY{p}{,} \PY{p}{(}\PY{n}{p} \PY{o}{\PYZhy{}} \PY{n}{Y}\PY{p}{)}\PY{p}{)} \PY{o}{/} \PY{n}{Y}\PY{o}{.}\PY{n}{size}
+                 \PY{n}{theta}\PY{o}{=}\PY{n}{theta}\PY{o}{\PYZhy{}}\PY{n}{learning\PYZus{}rate}\PY{o}{*}\PY{n}{gradient}
+             \PY{k}{return} \PY{n}{theta}
+\end{Verbatim}
+
+
+    \hypertarget{training-time---logistic-regression-gradient-descent}{%
+\subsection{Training Time - Logistic Regression (Gradient
+Descent)}\label{training-time---logistic-regression-gradient-descent}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}17}]:} \PY{n}{learning\PYZus{}rate}\PY{o}{=}\PY{l+m+mf}{0.1}
+         \PY{n}{number\PYZus{}iterations}\PY{o}{=}\PY{l+m+mi}{3000}
+         \PY{n}{start\PYZus{}time} \PY{o}{=} \PY{n}{time}\PY{o}{.}\PY{n}{time}\PY{p}{(}\PY{p}{)}
+         \PY{n}{theta1}\PY{o}{=}\PY{n}{gradient\PYZus{}descent\PYZus{}logistic\PYZus{}regression}\PY{p}{(}\PY{n}{X\PYZus{}data}\PY{p}{,}\PY{n}{train\PYZus{}labels1}\PY{p}{,}\PY{n}{learning\PYZus{}rate}\PY{p}{,}\PY{n}{number\PYZus{}iterations}\PY{p}{)}
+         \PY{n}{end\PYZus{}time} \PY{o}{=} \PY{n}{time}\PY{o}{.}\PY{n}{time}\PY{p}{(}\PY{p}{)}
+         \PY{n}{training\PYZus{}time}\PY{o}{=}\PY{n}{end\PYZus{}time}\PY{o}{\PYZhy{}}\PY{n}{start\PYZus{}time}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Training time for Iris\PYZhy{}Setosa: }\PY{l+s+s2}{\PYZdq{}}\PY{o}{+}\PY{n+nb}{str}\PY{p}{(}\PY{n}{training\PYZus{}time}\PY{p}{)}\PY{p}{)}
+         
+         \PY{n}{start\PYZus{}time} \PY{o}{=} \PY{n}{time}\PY{o}{.}\PY{n}{time}\PY{p}{(}\PY{p}{)}
+         \PY{n}{theta2}\PY{o}{=}\PY{n}{gradient\PYZus{}descent\PYZus{}logistic\PYZus{}regression}\PY{p}{(}\PY{n}{X\PYZus{}data}\PY{p}{,}\PY{n}{train\PYZus{}labels2}\PY{p}{,}\PY{n}{learning\PYZus{}rate}\PY{p}{,}\PY{n}{number\PYZus{}iterations}\PY{p}{)}
+         \PY{n}{end\PYZus{}time} \PY{o}{=} \PY{n}{time}\PY{o}{.}\PY{n}{time}\PY{p}{(}\PY{p}{)}
+         \PY{n}{training\PYZus{}time}\PY{o}{=}\PY{n}{end\PYZus{}time}\PY{o}{\PYZhy{}}\PY{n}{start\PYZus{}time}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Training time for Iris\PYZhy{}Versicolour: }\PY{l+s+s2}{\PYZdq{}}\PY{o}{+}\PY{n+nb}{str}\PY{p}{(}\PY{n}{training\PYZus{}time}\PY{p}{)}\PY{p}{)}
+         
+         
+         \PY{n}{start\PYZus{}time} \PY{o}{=} \PY{n}{time}\PY{o}{.}\PY{n}{time}\PY{p}{(}\PY{p}{)}
+         \PY{n}{theta3}\PY{o}{=}\PY{n}{gradient\PYZus{}descent\PYZus{}logistic\PYZus{}regression}\PY{p}{(}\PY{n}{X\PYZus{}data}\PY{p}{,}\PY{n}{train\PYZus{}labels3}\PY{p}{,}\PY{n}{learning\PYZus{}rate}\PY{p}{,}\PY{n}{number\PYZus{}iterations}\PY{p}{)}
+         \PY{n}{end\PYZus{}time} \PY{o}{=} \PY{n}{time}\PY{o}{.}\PY{n}{time}\PY{p}{(}\PY{p}{)}
+         \PY{n}{training\PYZus{}time}\PY{o}{=}\PY{n}{end\PYZus{}time}\PY{o}{\PYZhy{}}\PY{n}{start\PYZus{}time}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Training time for Iris\PYZhy{}Verginica: }\PY{l+s+s2}{\PYZdq{}}\PY{o}{+}\PY{n+nb}{str}\PY{p}{(}\PY{n}{training\PYZus{}time}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Training time for Iris-Setosa: 0.051275014877319336
+Training time for Iris-Versicolour: 0.04697895050048828
+Training time for Iris-Verginica: 0.03890109062194824
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}18}]:} \PY{n}{test\PYZus{}data\PYZus{}new}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{copy}\PY{p}{(}\PY{n}{test\PYZus{}data}\PY{p}{)}
+         \PY{n}{test\PYZus{}data\PYZus{}new}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{insert}\PY{p}{(}\PY{n}{test\PYZus{}data\PYZus{}new}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{n}{values}\PY{o}{=}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{;}
+         \PY{n}{predicted\PYZus{}labels1}\PY{o}{=}\PY{p}{[}\PY{p}{]}
+         \PY{n}{predicted\PYZus{}labels2}\PY{o}{=}\PY{p}{[}\PY{p}{]}
+         \PY{n}{predicted\PYZus{}labels3}\PY{o}{=}\PY{p}{[}\PY{p}{]}
+         \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{test\PYZus{}data\PYZus{}new}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+             \PY{k}{if}\PY{p}{(}\PY{n}{sigmoid}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{test\PYZus{}data\PYZus{}new}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{,}\PY{n}{theta1}\PY{p}{)}\PY{p}{)}\PY{o}{\PYZgt{}}\PY{l+m+mf}{0.5}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{predicted\PYZus{}labels1}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)}
+             \PY{k}{else}\PY{p}{:}
+                 \PY{n}{predicted\PYZus{}labels1}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{)}
+             \PY{k}{if}\PY{p}{(}\PY{n}{sigmoid}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{test\PYZus{}data\PYZus{}new}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{,}\PY{n}{theta2}\PY{p}{)}\PY{p}{)}\PY{o}{\PYZgt{}}\PY{l+m+mf}{0.5}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{predicted\PYZus{}labels2}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)}
+             \PY{k}{else}\PY{p}{:}
+                 \PY{n}{predicted\PYZus{}labels2}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{)}
+             \PY{k}{if}\PY{p}{(}\PY{n}{sigmoid}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{test\PYZus{}data\PYZus{}new}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{,}\PY{n}{theta3}\PY{p}{)}\PY{p}{)}\PY{o}{\PYZgt{}}\PY{l+m+mf}{0.5}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{predicted\PYZus{}labels3}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)}
+             \PY{k}{else}\PY{p}{:}
+                 \PY{n}{predicted\PYZus{}labels3}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{} print(predicted\PYZus{}labels)}
+\end{Verbatim}
+
+
+    \hypertarget{accuracy-score---logistic-regression-gradient-descent}{%
+\subsection{Accuracy score - Logistic Regression (Gradient
+Descent)}\label{accuracy-score---logistic-regression-gradient-descent}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}19}]:} \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Accuracy for Iris\PYZhy{}Setosa: }\PY{l+s+s2}{\PYZdq{}}\PY{o}{+}\PY{n+nb}{str}\PY{p}{(}\PY{n}{accuracy\PYZus{}score}\PY{p}{(}\PY{n}{test\PYZus{}labels1}\PY{p}{,}\PY{n}{predicted\PYZus{}labels1}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Accuracy for Iris\PYZhy{}Versicolour: }\PY{l+s+s2}{\PYZdq{}}\PY{o}{+}\PY{n+nb}{str}\PY{p}{(}\PY{n}{accuracy\PYZus{}score}\PY{p}{(}\PY{n}{test\PYZus{}labels2}\PY{p}{,}\PY{n}{predicted\PYZus{}labels2}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Accuracy for Iris\PYZhy{}Verginica: }\PY{l+s+s2}{\PYZdq{}}\PY{o}{+}\PY{n+nb}{str}\PY{p}{(}\PY{n}{accuracy\PYZus{}score}\PY{p}{(}\PY{n}{test\PYZus{}labels3}\PY{p}{,}\PY{n}{predicted\PYZus{}labels3}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Accuracy for Iris-Setosa: 1.0
+Accuracy for Iris-Versicolour: 0.6888888888888889
+Accuracy for Iris-Verginica: 1.0
+
+    \end{Verbatim}
+
+    \hypertarget{logistic-regression---newtons-method}{%
+\section{Logistic Regression - Newton's
+method}\label{logistic-regression---newtons-method}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}20}]:} \PY{k}{def} \PY{n+nf}{newton\PYZus{}method\PYZus{}logistic\PYZus{}regression}\PY{p}{(}\PY{n}{X\PYZus{}data}\PY{p}{,}\PY{n}{Y}\PY{p}{,}\PY{n}{number\PYZus{}iterations}\PY{p}{)}\PY{p}{:}
+             \PY{n}{theta}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{n}{X\PYZus{}data}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+             \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{number\PYZus{}iterations}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{z}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{X\PYZus{}data}\PY{p}{,}\PY{n}{theta}\PY{p}{)}
+                 \PY{n}{p}\PY{o}{=}\PY{n}{sigmoid}\PY{p}{(}\PY{n}{z}\PY{p}{)}
+                 \PY{n}{gradient}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{X\PYZus{}data}\PY{o}{.}\PY{n}{T}\PY{p}{,} \PY{p}{(}\PY{n}{p} \PY{o}{\PYZhy{}} \PY{n}{Y}\PY{p}{)}\PY{p}{)} \PY{o}{/} \PY{n}{Y}\PY{o}{.}\PY{n}{size}
+                 \PY{n}{column}\PY{o}{=}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{ones}\PY{p}{(}\PY{n}{p}\PY{o}{.}\PY{n}{size}\PY{p}{)}\PY{p}{)}\PY{o}{.}\PY{n}{T}
+                 \PY{n}{prob\PYZus{}product} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{p}\PY{p}{,}\PY{n}{column}\PY{o}{\PYZhy{}}\PY{n}{p}\PY{p}{)}
+                 \PY{n}{learning\PYZus{}rate}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{linalg}\PY{o}{.}\PY{n}{inv}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{prob\PYZus{}product}\PY{p}{,}\PY{n}{np}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{X\PYZus{}data}\PY{o}{.}\PY{n}{T}\PY{p}{,}\PY{n}{X\PYZus{}data}\PY{p}{)}\PY{o}{/} \PY{n}{Y}\PY{o}{.}\PY{n}{size}\PY{p}{)}\PY{p}{)}
+                 \PY{n}{theta}\PY{o}{=}\PY{n}{theta}\PY{o}{\PYZhy{}}\PY{n}{np}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{learning\PYZus{}rate}\PY{p}{,}\PY{n}{gradient}\PY{p}{)}
+             \PY{k}{return} \PY{n}{theta}
+\end{Verbatim}
+
+
+    \hypertarget{training-time---logistic-regression-newtons-method}{%
+\subsection{Training Time - Logistic Regression (Newton's
+Method)}\label{training-time---logistic-regression-newtons-method}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}21}]:} \PY{n}{start\PYZus{}time} \PY{o}{=} \PY{n}{time}\PY{o}{.}\PY{n}{time}\PY{p}{(}\PY{p}{)}
+         \PY{n}{theta1}\PY{o}{=}\PY{n}{newton\PYZus{}method\PYZus{}logistic\PYZus{}regression}\PY{p}{(}\PY{n}{X\PYZus{}data}\PY{p}{,}\PY{n}{train\PYZus{}labels1}\PY{p}{,}\PY{n}{number\PYZus{}iterations}\PY{p}{)}
+         \PY{n}{end\PYZus{}time} \PY{o}{=} \PY{n}{time}\PY{o}{.}\PY{n}{time}\PY{p}{(}\PY{p}{)}
+         \PY{n}{training\PYZus{}time}\PY{o}{=}\PY{n}{end\PYZus{}time}\PY{o}{\PYZhy{}}\PY{n}{start\PYZus{}time}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Training time for Iris\PYZhy{}Setosa: }\PY{l+s+s2}{\PYZdq{}}\PY{o}{+}\PY{n+nb}{str}\PY{p}{(}\PY{n}{training\PYZus{}time}\PY{p}{)}\PY{p}{)}
+         
+         \PY{n}{start\PYZus{}time} \PY{o}{=} \PY{n}{time}\PY{o}{.}\PY{n}{time}\PY{p}{(}\PY{p}{)}
+         \PY{n}{theta2}\PY{o}{=}\PY{n}{newton\PYZus{}method\PYZus{}logistic\PYZus{}regression}\PY{p}{(}\PY{n}{X\PYZus{}data}\PY{p}{,}\PY{n}{train\PYZus{}labels2}\PY{p}{,}\PY{n}{number\PYZus{}iterations}\PY{p}{)}
+         \PY{n}{end\PYZus{}time} \PY{o}{=} \PY{n}{time}\PY{o}{.}\PY{n}{time}\PY{p}{(}\PY{p}{)}
+         \PY{n}{training\PYZus{}time}\PY{o}{=}\PY{n}{end\PYZus{}time}\PY{o}{\PYZhy{}}\PY{n}{start\PYZus{}time}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Training time for Iris\PYZhy{}Versicolour: }\PY{l+s+s2}{\PYZdq{}}\PY{o}{+}\PY{n+nb}{str}\PY{p}{(}\PY{n}{training\PYZus{}time}\PY{p}{)}\PY{p}{)}
+         
+         \PY{n}{start\PYZus{}time} \PY{o}{=} \PY{n}{time}\PY{o}{.}\PY{n}{time}\PY{p}{(}\PY{p}{)}
+         \PY{n}{theta3}\PY{o}{=}\PY{n}{newton\PYZus{}method\PYZus{}logistic\PYZus{}regression}\PY{p}{(}\PY{n}{X\PYZus{}data}\PY{p}{,}\PY{n}{train\PYZus{}labels3}\PY{p}{,}\PY{n}{number\PYZus{}iterations}\PY{p}{)}
+         \PY{n}{end\PYZus{}time} \PY{o}{=} \PY{n}{time}\PY{o}{.}\PY{n}{time}\PY{p}{(}\PY{p}{)}
+         \PY{n}{training\PYZus{}time}\PY{o}{=}\PY{n}{end\PYZus{}time}\PY{o}{\PYZhy{}}\PY{n}{start\PYZus{}time}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Training time for Iris\PYZhy{}Verginica: }\PY{l+s+s2}{\PYZdq{}}\PY{o}{+}\PY{n+nb}{str}\PY{p}{(}\PY{n}{training\PYZus{}time}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Training time for Iris-Setosa: 0.159376859664917
+Training time for Iris-Versicolour: 0.1267549991607666
+Training time for Iris-Verginica: 0.16057109832763672
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}22}]:} \PY{n}{predicted\PYZus{}labels1}\PY{o}{=}\PY{p}{[}\PY{p}{]}
+         \PY{n}{predicted\PYZus{}labels2}\PY{o}{=}\PY{p}{[}\PY{p}{]}
+         \PY{n}{predicted\PYZus{}labels3}\PY{o}{=}\PY{p}{[}\PY{p}{]}
+         \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{test\PYZus{}data\PYZus{}new}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+             \PY{k}{if}\PY{p}{(}\PY{n}{sigmoid}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{test\PYZus{}data\PYZus{}new}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{,}\PY{n}{theta1}\PY{p}{)}\PY{p}{)}\PY{o}{\PYZgt{}}\PY{l+m+mf}{0.5}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{predicted\PYZus{}labels1}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)}
+             \PY{k}{else}\PY{p}{:}
+                 \PY{n}{predicted\PYZus{}labels1}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{)}
+             \PY{k}{if}\PY{p}{(}\PY{n}{sigmoid}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{test\PYZus{}data\PYZus{}new}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{,}\PY{n}{theta2}\PY{p}{)}\PY{p}{)}\PY{o}{\PYZgt{}}\PY{l+m+mf}{0.5}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{predicted\PYZus{}labels2}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)}
+             \PY{k}{else}\PY{p}{:}
+                 \PY{n}{predicted\PYZus{}labels2}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{)}
+             \PY{k}{if}\PY{p}{(}\PY{n}{sigmoid}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{test\PYZus{}data\PYZus{}new}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{,}\PY{n}{theta3}\PY{p}{)}\PY{p}{)}\PY{o}{\PYZgt{}}\PY{l+m+mf}{0.5}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{predicted\PYZus{}labels3}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)}
+             \PY{k}{else}\PY{p}{:}
+                 \PY{n}{predicted\PYZus{}labels3}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{)}
+\end{Verbatim}
+
+
+    \hypertarget{accuracy-score---logistic-regression-newtons-method}{%
+\subsection{Accuracy score - Logistic Regression (Newton's
+method)}\label{accuracy-score---logistic-regression-newtons-method}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}23}]:} \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Accuracy for Iris\PYZhy{}Setosa: }\PY{l+s+s2}{\PYZdq{}}\PY{o}{+}\PY{n+nb}{str}\PY{p}{(}\PY{n}{accuracy\PYZus{}score}\PY{p}{(}\PY{n}{test\PYZus{}labels1}\PY{p}{,}\PY{n}{predicted\PYZus{}labels1}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Accuracy for Iris\PYZhy{}Versicolour: }\PY{l+s+s2}{\PYZdq{}}\PY{o}{+}\PY{n+nb}{str}\PY{p}{(}\PY{n}{accuracy\PYZus{}score}\PY{p}{(}\PY{n}{test\PYZus{}labels2}\PY{p}{,}\PY{n}{predicted\PYZus{}labels2}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Accuracy for Iris\PYZhy{}Verginica: }\PY{l+s+s2}{\PYZdq{}}\PY{o}{+}\PY{n+nb}{str}\PY{p}{(}\PY{n}{accuracy\PYZus{}score}\PY{p}{(}\PY{n}{test\PYZus{}labels3}\PY{p}{,}\PY{n}{predicted\PYZus{}labels3}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Accuracy for Iris-Setosa: 1.0
+Accuracy for Iris-Versicolour: 0.7111111111111111
+Accuracy for Iris-Verginica: 1.0
+
+    \end{Verbatim}
+
+    \hypertarget{logistic-regression-library}{%
+\section{Logistic Regression
+(Library)}\label{logistic-regression-library}}
+
+    \hypertarget{training-time---logistic-regression-library}{%
+\subsection{Training Time - Logistic Regression
+(Library)}\label{training-time---logistic-regression-library}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}24}]:} \PY{n}{logistic\PYZus{}regression}\PY{o}{=}\PY{n}{LogisticRegression}\PY{p}{(}\PY{p}{)}
+         \PY{n}{start\PYZus{}time} \PY{o}{=} \PY{n}{time}\PY{o}{.}\PY{n}{time}\PY{p}{(}\PY{p}{)}
+         \PY{n}{logistic\PYZus{}regression}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X}\PY{p}{,}\PY{n}{train\PYZus{}labels1}\PY{p}{)}
+         \PY{n}{end\PYZus{}time} \PY{o}{=} \PY{n}{time}\PY{o}{.}\PY{n}{time}\PY{p}{(}\PY{p}{)}
+         \PY{n}{training\PYZus{}time}\PY{o}{=}\PY{n}{end\PYZus{}time}\PY{o}{\PYZhy{}}\PY{n}{start\PYZus{}time}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Training time for Iris\PYZhy{}Setosa: }\PY{l+s+s2}{\PYZdq{}}\PY{o}{+}\PY{n+nb}{str}\PY{p}{(}\PY{n}{training\PYZus{}time}\PY{p}{)}\PY{p}{)}
+         \PY{n}{predicted\PYZus{}labels1}\PY{o}{=}\PY{n}{logistic\PYZus{}regression}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{test\PYZus{}data}\PY{p}{)} \PY{c+c1}{\PYZsh{} prediction of labels for test data}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Training time for Iris-Setosa: 0.001950979232788086
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}25}]:} \PY{n}{start\PYZus{}time} \PY{o}{=} \PY{n}{time}\PY{o}{.}\PY{n}{time}\PY{p}{(}\PY{p}{)}
+         \PY{n}{logistic\PYZus{}regression}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X}\PY{p}{,}\PY{n}{train\PYZus{}labels2}\PY{p}{)}
+         \PY{n}{end\PYZus{}time} \PY{o}{=} \PY{n}{time}\PY{o}{.}\PY{n}{time}\PY{p}{(}\PY{p}{)}
+         \PY{n}{training\PYZus{}time}\PY{o}{=}\PY{n}{end\PYZus{}time}\PY{o}{\PYZhy{}}\PY{n}{start\PYZus{}time}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Training time for Iris\PYZhy{}Versicolour: }\PY{l+s+s2}{\PYZdq{}}\PY{o}{+}\PY{n+nb}{str}\PY{p}{(}\PY{n}{training\PYZus{}time}\PY{p}{)}\PY{p}{)}
+         \PY{n}{predicted\PYZus{}labels2}\PY{o}{=}\PY{n}{logistic\PYZus{}regression}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{test\PYZus{}data}\PY{p}{)} \PY{c+c1}{\PYZsh{} prediction of labels for test data}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Training time for Iris-Versicolour: 0.0011680126190185547
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}26}]:} \PY{n}{start\PYZus{}time} \PY{o}{=} \PY{n}{time}\PY{o}{.}\PY{n}{time}\PY{p}{(}\PY{p}{)}
+         \PY{n}{logistic\PYZus{}regression}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X}\PY{p}{,}\PY{n}{train\PYZus{}labels3}\PY{p}{)}
+         \PY{n}{end\PYZus{}time} \PY{o}{=} \PY{n}{time}\PY{o}{.}\PY{n}{time}\PY{p}{(}\PY{p}{)}
+         \PY{n}{training\PYZus{}time}\PY{o}{=}\PY{n}{end\PYZus{}time}\PY{o}{\PYZhy{}}\PY{n}{start\PYZus{}time}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Training time for Iris\PYZhy{}Verginica: }\PY{l+s+s2}{\PYZdq{}}\PY{o}{+}\PY{n+nb}{str}\PY{p}{(}\PY{n}{training\PYZus{}time}\PY{p}{)}\PY{p}{)}
+         \PY{n}{predicted\PYZus{}labels3}\PY{o}{=}\PY{n}{logistic\PYZus{}regression}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{test\PYZus{}data}\PY{p}{)} \PY{c+c1}{\PYZsh{} prediction of labels for test data}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Training time for Iris-Verginica: 0.0012712478637695312
+
+    \end{Verbatim}
+
+    \hypertarget{accuracy-score---logistic-regression-library}{%
+\subsection{Accuracy score - Logistic Regression
+(library)}\label{accuracy-score---logistic-regression-library}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}27}]:} \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Accuracy for Iris\PYZhy{}Setosa: }\PY{l+s+s2}{\PYZdq{}}\PY{o}{+}\PY{n+nb}{str}\PY{p}{(}\PY{n}{accuracy\PYZus{}score}\PY{p}{(}\PY{n}{test\PYZus{}labels1}\PY{p}{,}\PY{n}{predicted\PYZus{}labels1}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Accuracy for Iris\PYZhy{}Versicolour: }\PY{l+s+s2}{\PYZdq{}}\PY{o}{+}\PY{n+nb}{str}\PY{p}{(}\PY{n}{accuracy\PYZus{}score}\PY{p}{(}\PY{n}{test\PYZus{}labels2}\PY{p}{,}\PY{n}{predicted\PYZus{}labels2}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Accuracy for Iris\PYZhy{}Verginica: }\PY{l+s+s2}{\PYZdq{}}\PY{o}{+}\PY{n+nb}{str}\PY{p}{(}\PY{n}{accuracy\PYZus{}score}\PY{p}{(}\PY{n}{test\PYZus{}labels3}\PY{p}{,}\PY{n}{predicted\PYZus{}labels3}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Accuracy for Iris-Setosa: 1.0
+Accuracy for Iris-Versicolour: 0.7111111111111111
+Accuracy for Iris-Verginica: 0.9555555555555556
+
+    \end{Verbatim}
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
